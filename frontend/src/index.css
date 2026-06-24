@@ -1,0 +1,916 @@
+/* ==========================================================================
+   CARDIOPREDICT — MASTER CLINICAL DESIGN SYSTEM (EVST 2026 EDITION)
+   Theme: Denim Fade, Ivory Silk, Burnt Orange, Chocolate Brown
+   Architecture: Fully Responsive, Stateful, Component-Driven
+========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ==========================================================================
+   1. CORE TOKENS & VARIABLES
+========================================================================== */
+:root {
+  /* Primary Brand Palette */
+  --brand-denim-dark: #233c57;
+  --brand-denim-core: #3A5A81;
+  --brand-navy: #1E2A3B;
+  --brand-orange: #D9653B;
+  --brand-orange-hover: #c2552e;
+  --brand-brown: #5D4037;
+  --brand-ivory: #F7F3EE;
+  --brand-ivory-light: #FDFBF9;
+
+
+  /* The CDO's Signature Ombre: Denim Blue to Ivory Silk */
+  --bg-denim-gradient: linear-gradient(180deg,
+      var(--brand-denim-core) 0%,
+      var(--brand-denim-core) 50%,
+      /* Solid anchor for Hero text */
+      #3B5B80 62%,
+      /* Micro-step 1: The imperceptible melt begins */
+      #48698D 70%,
+      /* Micro-step 2 */
+      #57789B 77%,
+      /* Micro-step 3 */
+      #6A88A9 83%,
+      /* Micro-step 4 */
+      #809CB8 88%,
+      /* Micro-step 5 */
+      #98B1C8 92%,
+      /* Micro-step 6 */
+      #B6C8D8 96%,
+      /* Micro-step 7: Final slate wash */
+      #FAF7F2 100%
+      /* The Ivory Silk finish */
+    );
+  --bg-ivory-gradient: linear-gradient(135deg, var(--brand-ivory-light) 0%, var(--brand-ivory) 100%);
+  --bg-frosted-glass: linear-gradient(135deg, #FCFDFF 0%, #F0F5FA 50%, #E1EBF5 100%);
+
+  /* Standardized Clinical Risk Colors */
+  --risk-low: #16a34a;
+  --risk-low-bg: #f0fdf4;
+  --risk-low-border: #bbf7d0;
+
+  --risk-medium: #d97706;
+  --risk-medium-bg: #fffbeb;
+  --risk-medium-border: #fde68a;
+
+  --risk-high: #dc2626;
+  --risk-high-bg: #fef2f2;
+  --risk-high-border: #fecaca;
+
+  /* Typography & Layout */
+  --font: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Elevation & Shadows */
+  --shadow-sm: 0 2px 4px rgba(30, 42, 59, 0.05);
+  --shadow-md: 0 4px 12px rgba(30, 42, 59, 0.08);
+  --shadow-lg: 0 12px 24px -4px rgba(30, 42, 59, 0.12);
+  --shadow-orange: 0 4px 12px rgba(217, 101, 59, 0.25);
+}
+
+/* ==========================================================================
+   2. CSS RESET & BASE STYLES
+========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  min-height: 100vh;
+  background: var(--bg-frosted-glass);
+  /* Updated to Frosted Glass */
+  color: var(--brand-navy);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font);
+  font-weight: 700;
+  color: var(--brand-navy);
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* Custom Scrollbar for Data Heavy Views */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--brand-ivory);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(93, 64, 55, 0.25);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-orange);
+}
+
+/* Selection */
+::selection {
+  background: var(--brand-orange);
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   3. LAYOUT WRAPPERS
+========================================================================== */
+.page-wrapper,
+.auth-wrapper,
+.app-wrapper {
+  min-height: 100vh;
+  background: var(--bg-frosted-glass);
+  /* Updated to Frosted Glass */
+  padding-bottom: 80px;
+  animation: pageEnter 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* ==========================================================================
+   4. NAVIGATION BAR
+========================================================================== */
+.navbar-cardio {
+  background: #FFFFFF !important;
+  border-bottom: 1px solid rgba(93, 64, 55, 0.15);
+  padding: 16px 0;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.navbar-cardio .navbar-brand {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--brand-navy);
+  letter-spacing: -0.5px;
+}
+
+.navbar-cardio .navbar-brand span {
+  color: var(--brand-orange);
+}
+
+.navbar-cardio .nav-link {
+  color: var(--brand-brown) !important;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px !important;
+  border-radius: var(--radius-sm);
+}
+
+.navbar-cardio .nav-link:hover {
+  color: var(--brand-orange) !important;
+  background: rgba(217, 101, 59, 0.05);
+}
+
+/* ==========================================================================
+   5. HERO SECTION
+========================================================================== */
+.hero-section {
+  padding: 120px 0 100px;
+  text-align: center;
+  background: var(--bg-denim-gradient);
+  border-bottom: 4px solid var(--brand-orange);
+  box-shadow: 0 4px 20px rgba(58, 90, 129, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-title {
+  font-size: clamp(2.8rem, 6vw, 4.8rem);
+  font-weight: 800;
+  color: var(--brand-ivory);
+  letter-spacing: -1.5px;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: rgba(247, 243, 238, 0.85);
+  /* Ivory with opacity */
+  max-width: 540px;
+  margin: 0 auto 40px auto;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.gradient-text {
+  color: #FFFFFF;
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+/* ==========================================================================
+   6. CARDS & CONTAINERS
+========================================================================== */
+.auth-card,
+.card-app,
+.stat-card,
+.step-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(93, 64, 55, 0.12);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  color: var(--brand-navy);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.auth-card {
+  padding: 48px 40px;
+  width: 100%;
+}
+
+.stat-card {
+  padding: 32px 24px;
+  text-align: center;
+  height: 100%;
+}
+
+.step-card {
+  padding: 36px 28px;
+  height: 100%;
+  position: relative;
+}
+
+.stat-card:hover,
+.step-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+  border-color: var(--brand-orange);
+}
+
+/* The Core Prediction Result Engine */
+.result-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(93, 64, 55, 0.15);
+  border-top: 4px solid var(--brand-denim-core);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  margin-top: 28px;
+  box-shadow: var(--shadow-lg);
+  animation: resultPop 0.5s cubic-bezier(0.34, 1.5, 0.64, 1) forwards;
+}
+
+/* ==========================================================================
+   7. TYPOGRAPHY & DATA LABELS
+========================================================================== */
+.app-page-header {
+  margin-bottom: 36px;
+}
+
+.app-page-title,
+.auth-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--brand-navy);
+  letter-spacing: -0.5px;
+}
+
+.app-page-subtitle,
+.auth-subtitle {
+  font-size: 15px;
+  color: var(--brand-brown);
+  margin-top: 8px;
+}
+
+.card-section-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--brand-brown);
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(93, 64, 55, 0.1);
+  padding-bottom: 10px;
+}
+
+.stat-value {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  color: var(--brand-orange);
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--brand-brown);
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.step-number {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--brand-orange);
+  margin-bottom: 16px;
+}
+
+/* ==========================================================================
+   8. FORMS, INPUTS & OTP
+========================================================================== */
+.auth-label,
+.app-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--brand-navy);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.auth-input,
+.app-input,
+.app-select {
+  width: 100%;
+  background: var(--brand-ivory);
+  border: 1px solid rgba(93, 64, 55, 0.2);
+  border-radius: var(--radius-sm);
+  color: var(--brand-navy);
+  font-size: 14px;
+  padding: 12px 16px;
+  outline: none;
+  font-family: var(--font);
+  transition: all 0.2s ease;
+  appearance: auto;
+}
+
+.auth-input:focus,
+.app-input:focus,
+.app-select:focus {
+  background: #FFFFFF;
+  border-color: var(--brand-orange);
+  box-shadow: 0 0 0 3px rgba(217, 101, 59, 0.15);
+}
+
+.auth-input::placeholder,
+.app-input::placeholder {
+  color: #A0ABC0;
+}
+
+.is-invalid {
+  border-color: #ef4444 !important;
+}
+
+.invalid-msg {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+/* OTP Specific Overrides */
+input.auth-input.text-center[maxLength="6"] {
+  font-size: 32px !important;
+  letter-spacing: 16px !important;
+  font-weight: 800 !important;
+  padding: 20px !important;
+  color: var(--brand-denim-dark);
+}
+
+/* ==========================================================================
+   9. BUTTONS & ACTIONS
+========================================================================== */
+.btn-hero-primary,
+.auth-btn,
+.btn-app-primary {
+  background: var(--brand-orange);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: var(--shadow-orange);
+}
+
+.btn-hero-primary {
+  min-width: 200px;
+}
+
+.auth-btn,
+.btn-app-primary.w-100 {
+  width: 100%;
+}
+
+.btn-hero-primary:hover,
+.auth-btn:hover,
+.btn-app-primary:hover {
+  background: var(--brand-orange-hover);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(217, 101, 59, 0.35);
+}
+
+.btn-hero-primary:disabled,
+.auth-btn:disabled,
+.btn-app-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-hero-secondary {
+  background: transparent;
+  color: var(--brand-ivory);
+  border: 2px solid rgba(247, 243, 238, 0.4);
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 14px 28px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  transition: all 0.2s ease;
+}
+
+.btn-hero-secondary:hover {
+  border-color: var(--brand-ivory);
+  background: rgba(247, 243, 238, 0.1);
+  color: #FFFFFF;
+}
+
+.btn-app-secondary,
+.btn-nav-ghost {
+  background: #FFFFFF;
+  color: var(--brand-navy);
+  border: 1.5px solid rgba(30, 42, 59, 0.2);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-app-secondary:hover,
+.btn-nav-ghost:hover {
+  border-color: var(--brand-navy);
+  background: var(--brand-ivory);
+  color: var(--brand-navy);
+}
+
+.btn-nav-primary {
+  background: var(--brand-denim-core);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 22px;
+  transition: all 0.2s ease;
+}
+
+.btn-nav-primary:hover {
+  background: var(--brand-orange);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+/* Danger Zone */
+.btn-app-danger {
+  background: transparent;
+  color: #dc2626;
+  border: 1.5px solid #fecaca;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  transition: all 0.2s ease;
+}
+
+.btn-app-danger:hover {
+  background: #fef2f2;
+  border-color: #dc2626;
+}
+
+.btn-confirm-danger {
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 24px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btn-confirm-danger:hover {
+  background: #b91c1c;
+}
+
+.btn-cancel {
+  background: #e2e8f0;
+  color: #334155;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 24px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btn-cancel:hover {
+  background: #cbd5e1;
+}
+
+/* Links */
+.auth-link {
+  color: var(--brand-orange);
+  font-weight: 700;
+  transition: color 0.2s;
+}
+
+.auth-link:hover {
+  color: var(--brand-brown);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   10. MODEL SELECTOR WIDGET
+========================================================================== */
+.model-card {
+  background: var(--brand-ivory);
+  border: 1.5px solid rgba(93, 64, 55, 0.1);
+  border-radius: var(--radius-md);
+  padding: 20px 12px;
+  cursor: pointer;
+  text-align: center;
+  height: 100%;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.model-card:hover {
+  border-color: var(--brand-orange);
+  background: #FFFFFF;
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.model-card.selected {
+  border-color: var(--brand-orange);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 2px var(--brand-orange);
+}
+
+.model-card-name {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--brand-navy);
+  margin-bottom: 8px;
+}
+
+.model-card-accuracy {
+  font-size: 12px;
+  color: var(--brand-brown);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.recommended-tag {
+  display: inline-block;
+  background: var(--brand-denim-core);
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 50px;
+  margin-top: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   11. RISK BADGES & ALERTS
+========================================================================== */
+.risk-badge {
+  display: inline-block;
+  padding: 12px 36px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.risk-low {
+  background: var(--risk-low-bg);
+  color: var(--risk-low);
+  border: 2px solid var(--risk-low-border);
+}
+
+.risk-medium {
+  background: var(--risk-medium-bg);
+  color: var(--risk-medium);
+  border: 2px solid var(--risk-medium-border);
+}
+
+.risk-high {
+  background: var(--risk-high-bg);
+  color: var(--risk-high);
+  border: 2px solid var(--risk-high-border);
+  animation: pulse-risk 1.5s infinite;
+}
+
+.badge-low {
+  background: var(--risk-low-bg);
+  color: var(--risk-low);
+  border: 1px solid var(--risk-low-border);
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.badge-medium {
+  background: var(--risk-medium-bg);
+  color: var(--risk-medium);
+  border: 1px solid var(--risk-medium-border);
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.badge-high {
+  background: var(--risk-high-bg);
+  color: var(--risk-high);
+  border: 1px solid var(--risk-high-border);
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.auth-alert-error,
+.app-alert-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.auth-alert-success {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.app-alert-warning {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #d97706;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   12. CLINICAL TABLES (History & Comparison)
+========================================================================== */
+.table-responsive {
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+}
+
+.app-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: #FFFFFF;
+}
+
+.app-table th {
+  background: rgba(93, 64, 55, 0.05);
+  color: var(--brand-brown);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 18px 16px;
+  border-bottom: 2px solid rgba(93, 64, 55, 0.15);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.app-table td {
+  padding: 18px 16px;
+  border-bottom: 1px solid rgba(93, 64, 55, 0.08);
+  color: var(--brand-navy);
+  vertical-align: middle;
+}
+
+.app-table tbody tr:hover td {
+  background: var(--brand-ivory);
+}
+
+.expandable-row {
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+/* ==========================================================================
+   13. TOOLTIPS
+========================================================================== */
+.field-tooltip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background: var(--brand-brown);
+  color: #FFFFFF;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  margin-left: 6px;
+  transition: transform 0.2s ease;
+}
+
+.field-tooltip:hover {
+  transform: scale(1.1);
+}
+
+.field-tooltip:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 26px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--brand-navy);
+  color: var(--brand-ivory);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  white-space: normal;
+  width: 240px;
+  z-index: 999;
+  font-weight: 500;
+  line-height: 1.5;
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   14. FOOTER
+========================================================================== */
+.footer-disclaimer {
+  background: var(--brand-navy);
+  color: #A0ABC0;
+  text-align: center;
+  padding: 16px;
+  font-size: 12px;
+  border-top: 4px solid var(--brand-orange);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   15. KEYFRAMES & ANIMATIONS
+========================================================================== */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes resultPop {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes pulse-risk {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 0 12px rgba(220, 38, 38, 0);
+  }
+}
+
+.fade-in-up {
+  animation: pageEnter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* ==========================================================================
+   16. MEDIA QUERIES
+========================================================================== */
+@media (max-width: 991px) {
+  .hero-section {
+    padding: 80px 0 60px;
+  }
+
+  .hero-title {
+    font-size: 2.8rem;
+  }
+
+  .stat-card {
+    padding: 20px 16px;
+  }
+
+  .stat-value {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-card {
+    padding: 32px 24px;
+  }
+
+  .hero-title {
+    font-size: 2.4rem;
+    letter-spacing: -1px;
+  }
+
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    width: 100%;
+    min-width: auto;
+    margin-bottom: 12px;
+  }
+
+  .result-card {
+    padding: 24px 16px;
+  }
+
+  .app-table th,
+  .app-table td {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+}
