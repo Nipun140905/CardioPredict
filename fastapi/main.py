@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from schemas import PredictRequest, PredictResponse
 from services.predictor import predict, models, THRESHOLDS
 from services.feature_importance import get_feature_importance
+import subprocess
+subprocess.run(['python', 'download_models.py'], check=True)
 
 app = FastAPI(title="CardioPredict ML API", version="1.0.0")
 

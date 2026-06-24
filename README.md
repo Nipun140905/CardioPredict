@@ -56,7 +56,7 @@ CardioPredict/
 ├── frontend/         # React/Vite — Full UI
 
 └── notebooks/        # 4 Jupyter notebooks — model training
----
+
 
 ## Local Setup
 
