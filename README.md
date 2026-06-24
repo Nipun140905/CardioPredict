@@ -56,6 +56,7 @@ CardioPredict/
 ├── frontend/         # React/Vite — Full UI
 
 └── notebooks/        # 4 Jupyter notebooks — model training
+
 ---
 
 ## Local Setup
@@ -109,6 +110,7 @@ FASTAPI_URL=http://localhost:8000
 EMAIL_USER=your_gmail@gmail.com
 
 EMAIL_PASS=your_gmail_app_password
+
 ---
 
 ## Model Training
