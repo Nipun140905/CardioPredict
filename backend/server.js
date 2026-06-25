@@ -12,7 +12,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://cardiopredict.vercel.app'], // React dev server
+    origin: ['http://localhost:5173', 'https://cardio-predict-lyart.vercel.app'], // React dev server
     credentials: true               // Allow cookies
 }));
 app.use(express.json());
