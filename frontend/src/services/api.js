@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://cardiopredict-backend-bie9.onrender.com',
+    baseURL: 'https://cardiopredict-90a2.onrender.com',
     withCredentials: true,
 });
 

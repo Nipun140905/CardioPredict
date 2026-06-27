@@ -1,5 +1,5 @@
 import os
-import gdown
+import gdown # type: ignore
 
 os.makedirs('pkl_files', exist_ok=True)
 
