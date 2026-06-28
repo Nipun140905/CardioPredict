@@ -50,7 +50,15 @@ const signup = async (req, res) => {
             await User.create({ email, password, otp, otpExpiry });
         }
 
-        await sendOTPEmail(email, otp);
+        try {
+            await sendOTPEmail(email, otp);
+            console.log("SUCCESS: Email sent on Port 587!");
+        } catch (emailError) {
+            console.error("\n=== 🚨 SMTP ERROR ON PORT 587 🚨 ===");
+            console.error(emailError);
+            console.error("======================================\n");
+            return res.status(500).json({ message: 'Email failed to send', error: emailError.message });
+        }
 
         res.status(200).json({
             message: 'OTP sent to your email',
