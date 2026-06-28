@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 require('dotenv').config();
+console.log('GOOGLE_CLIENT_ID loaded:', !!process.env.GOOGLE_CLIENT_ID);
 
 const authRoutes = require('./routes/auth');
 const predictionRoutes = require('./routes/predictions');
