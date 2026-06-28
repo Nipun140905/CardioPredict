@@ -50,7 +50,7 @@ const signup = async (req, res) => {
             await User.create({ email, password, otp, otpExpiry });
         }
 
-        await sendOTPEmail(email, otp);
+        sendOTPEmail(email, otp).catch(err => console.error("SMTP ERROR:", err)); // <--- THIS IS THE NEW LINE
 
         res.status(200).json({
             message: 'OTP sent to your email',
