@@ -22,14 +22,8 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const login = async (data) => {
-        const res = await authAPI.login(data);
-        setUser(res.data.user);
-        return res;
-    };
-
-    const signup = async (data) => {
-        const res = await authAPI.signup(data);
+    const googleLogin = async (credential) => {
+        const res = await authAPI.googleAuth(credential);
         setUser(res.data.user);
         return res;
     };
@@ -40,7 +34,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, signup, logout }}>
+        <AuthContext.Provider value={{ user, loading, googleLogin, logout }}>
             {children}
         </AuthContext.Provider>
     );

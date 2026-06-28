@@ -1,42 +1,29 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
-    const [form, setForm] = useState({ email: '', password: '' });
-    const [errors, setErrors] = useState({});
-    const [apiError, setApiError] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
-    const { login } = useAuth();
+    const { googleLogin } = useAuth();
     const navigate = useNavigate();
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const validate = () => {
-        const e = {};
-        if (!form.email) e.email = 'Email is required';
-        else if (!/\S+@\S+\.\S+/.test(form.email)) e.email = 'Invalid email format';
-        if (!form.password) e.password = 'Password is required';
-        return e;
-    };
-
-    const handleSubmit = async () => {
-        const e = validate();
-        if (Object.keys(e).length > 0) { setErrors(e); return; }
+    const handleSuccess = async (credentialResponse) => {
         setLoading(true);
-        setApiError('');
+        setError('');
         try {
-            await login(form);
+            await googleLogin(credentialResponse.credential);
             navigate('/predict');
         } catch (err) {
-            setApiError(err.response?.data?.message || 'Login failed. Please try again.');
+            setError(err.response?.data?.message || 'Authentication failed. Please try again.');
         } finally {
             setLoading(false);
         }
     };
 
-    const handleChange = (field, value) => {
-        setForm(prev => ({ ...prev, [field]: value }));
-        if (errors[field]) setErrors(prev => ({ ...prev, [field]: '' }));
+    const handleError = () => {
+        setError('Google sign-in was cancelled or failed. Please try again.');
     };
 
     return (
@@ -45,67 +32,55 @@ const Login = () => {
                 <div className="text-center mb-5">
                     <div className="d-flex align-items-center justify-content-center gap-2 mb-3">
                         <span style={{ fontWeight: '800', fontSize: '1.1rem', color: '#111827' }}>
-                            Cardio<span>Predict</span>
+                            Cardio<span style={{ color: 'var(--brand-orange)' }}>Predict</span>
                         </span>
                     </div>
-                    <h2 className="auth-title">Welcome back</h2>
-                    <p className="auth-subtitle">Sign in to your account</p>
+                    <h2 className="auth-title">Welcome</h2>
+                    <p className="auth-subtitle">Sign in or create an account to continue</p>
                 </div>
 
                 <div className="auth-card">
-                    {apiError && <div className="auth-alert-error">{apiError}</div>}
+                    {error && <div className="auth-alert-error mb-4">{error}</div>}
 
-                    <div className="mb-3">
-                        <label className="auth-label">Email address</label>
-                        <input
-                            type="email"
-                            className={`auth-input ${errors.email ? 'is-invalid' : ''}`}
-                            placeholder="you@example.com"
-                            value={form.email}
-                            onChange={e => handleChange('email', e.target.value)}
-                        />
-                        {errors.email && <div className="invalid-msg">{errors.email}</div>}
-                    </div>
+                    <p style={{
+                        fontSize: '14px',
+                        color: 'var(--brand-brown)',
+                        textAlign: 'center',
+                        marginBottom: '24px',
+                        lineHeight: '1.6'
+                    }}>
+                        Use your Google account to access CardioPredict. No password needed.
+                    </p>
 
-                    <div className="mb-4">
-                        <label className="auth-label">Password</label>
-                        <div style={{ position: 'relative' }}>
-                            <input
-                                type={showPassword ? 'text' : 'password'}
-                                className={`auth-input ${errors.password ? 'is-invalid' : ''}`}
-                                placeholder="Your password"
-                                value={form.password}
-                                style={{ paddingRight: '64px' }}
-                                onChange={e => handleChange('password', e.target.value)}
-                                onKeyDown={e => e.key === 'Enter' && handleSubmit()}
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                style={{
-                                    position: 'absolute', right: '12px', top: '50%',
-                                    transform: 'translateY(-50%)', background: 'none',
-                                    border: 'none', color: '#9ca3af', fontSize: '13px',
-                                    cursor: 'pointer', fontWeight: '500', fontFamily: 'inherit'
-                                }}>
-                                {showPassword ? 'Hide' : 'Show'}
-                            </button>
-                        </div>
-                        {errors.password && <div className="invalid-msg">{errors.password}</div>}
-                    </div>
-
-                    <button className="auth-btn mb-4" onClick={handleSubmit} disabled={loading}>
+                    <div className="d-flex justify-content-center mb-4">
                         {loading ? (
-                            <><span className="spinner-border spinner-border-sm me-2"
-                                style={{ color: 'white' }}></span>Signing in...</>
-                        ) : 'Sign In'}
-                    </button>
+                            <button className="auth-btn" disabled>
+                                <span className="spinner-border spinner-border-sm me-2"
+                                    style={{ color: 'white' }}></span>
+                                Signing in...
+                            </button>
+                        ) : (
+                            <GoogleLogin
+                                onSuccess={handleSuccess}
+                                onError={handleError}
+                                useOneTap={false}
+                                theme="outline"
+                                size="large"
+                                text="continue_with"
+                                shape="rectangular"
+                                width="320"
+                            />
+                        )}
+                    </div>
 
-                    <hr className="auth-divider" />
-
-                    <p className="text-center mb-0" style={{ fontSize: '14px', color: '#9ca3af' }}>
-                        Don't have an account?{' '}
-                        <Link to="/signup" className="auth-link">Sign Up</Link>
+                    <p style={{
+                        fontSize: '12px',
+                        color: '#94a3b8',
+                        textAlign: 'center',
+                        marginBottom: 0,
+                        lineHeight: '1.6'
+                    }}>
+                        By continuing, you agree this app is for educational purposes only and not a substitute for medical advice.
                     </p>
                 </div>
             </div>

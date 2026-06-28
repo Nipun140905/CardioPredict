@@ -4,11 +4,9 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Signup from './pages/Signup';
 import Prediction from './pages/Prediction';
 import History from './pages/History';
 import ModelComparison from './pages/ModelComparison';
-import VerifyOTP from './pages/VerifyOTP';
 import Profile from './pages/Profile';
 
 const ProtectedRoute = ({ children }) => {
@@ -33,10 +31,10 @@ const AppRoutes = () => {
     <>
       <NavBar />
       <Routes>
-        <Route path="/verify-otp" element={<VerifyOTP />} />
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Navigate to="/login" />} />
+        <Route path="/verify-otp" element={<Navigate to="/login" />} />
         <Route path="/predict" element={<ProtectedRoute><Prediction /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />

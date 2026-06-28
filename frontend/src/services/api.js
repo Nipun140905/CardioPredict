@@ -6,10 +6,7 @@ const api = axios.create({
 });
 
 export const authAPI = {
-    verifyOTP: (data) => api.post('/auth/verify-otp', data),
-    resendOTP: (data) => api.post('/auth/resend-otp', data),
-    signup: (data) => api.post('/auth/signup', data),
-    login: (data) => api.post('/auth/login', data),
+    googleAuth: (credential) => api.post('/auth/google', { credential }),
     logout: () => api.post('/auth/logout'),
     getMe: () => api.get('/auth/me'),
     deleteAccount: () => api.delete('/auth/delete-account'),

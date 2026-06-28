@@ -50,7 +50,7 @@ const NavBar = () => {
                                     <Link className="nav-link" to="/login">Login</Link>
                                 </li>
                                 <li className="nav-item ms-2">
-                                    <Link className="btn-nav-primary" to="/signup">Get Started</Link>
+                                    <Link className="btn-nav-primary" to="/login">Get Started</Link>
                                 </li>
                             </>
                         )}
