@@ -46,10 +46,10 @@ const Home = () => {
                             Ensemble ML for Precision Cardiology
                         </p>
                         <div className="d-flex gap-3 justify-content-center flex-wrap">
-                            <Link to={user ? '/predict' : '/signup'} className="btn-hero-primary">
+                            <Link to={user ? '/predict' : '/login'} className="btn-hero-primary">
                                 Start Prediction
                             </Link>
-                            <Link to={user ? '/models' : '/signup'} className="btn-hero-secondary">
+                            <Link to={user ? '/models' : '/login'} className="btn-hero-secondary">
                                 View Models
                             </Link>
                         </div>

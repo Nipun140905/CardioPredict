@@ -2,7 +2,7 @@
 
 A full-stack web application for cardiovascular disease risk prediction using 4 trained ML models on the UCI Cleveland Heart Disease dataset.
 
-**Live Demo:** [cardiopredict.vercel.app](https://cardio-predict-lyart.vercel.app/) *(add after deployment)*
+**Live Demo:** [cardiopredict.vercel.app](https://cardio-predict-lyart.vercel.app/)
 
 ---
 

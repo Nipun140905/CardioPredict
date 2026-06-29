@@ -39,22 +39,23 @@ const Login = () => {
                     <p className="auth-subtitle">Sign in or create an account to continue</p>
                 </div>
 
-                <div className="auth-card">
+                <div className="auth-card" style={{ textAlign: 'center' }}>
                     {error && <div className="auth-alert-error mb-4">{error}</div>}
 
                     <p style={{
-                        fontSize: '14px',
+                        fontSize: '15px',
+                        fontWeight: '500',
                         color: 'var(--brand-brown)',
                         textAlign: 'center',
-                        marginBottom: '24px',
-                        lineHeight: '1.6'
+                        marginBottom: '28px',
+                        lineHeight: '1.7'
                     }}>
-                        Use your Google account to access CardioPredict. No password needed.
+                        Use your Google account to access CardioPredict.<br />No password needed.
                     </p>
 
                     <div className="d-flex justify-content-center mb-4">
                         {loading ? (
-                            <button className="auth-btn" disabled>
+                            <button className="auth-btn" disabled style={{ minWidth: '280px' }}>
                                 <span className="spinner-border spinner-border-sm me-2"
                                     style={{ color: 'white' }}></span>
                                 Signing in...
@@ -80,7 +81,8 @@ const Login = () => {
                         marginBottom: 0,
                         lineHeight: '1.6'
                     }}>
-                        By continuing, you agree this app is for educational purposes only and not a substitute for medical advice.
+                        By continuing, you agree this app is for educational purposes only
+                        and not a substitute for medical advice.
                     </p>
                 </div>
             </div>

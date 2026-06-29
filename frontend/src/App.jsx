@@ -33,8 +33,8 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Navigate to="/login" />} />
-        <Route path="/verify-otp" element={<Navigate to="/login" />} />
+        <Route path="/signup" element={<Navigate to="/login" replace />} />
+        <Route path="/verify-otp" element={<Navigate to="/login" replace />} />
         <Route path="/predict" element={<ProtectedRoute><Prediction /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
