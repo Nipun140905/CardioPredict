@@ -2,7 +2,7 @@
 
 A full-stack web application for cardiovascular disease risk prediction using 4 trained ML models on the UCI Cleveland Heart Disease dataset.
 
-**Live Demo:** [cardiopredict.vercel.app](https://cardio-predict-lyart.vercel.app/)
+**Live Demo:** [cardio-predict-lyart.vercel.app](https://cardio-predict-lyart.vercel.app/)
 
 ---
 
@@ -11,7 +11,7 @@ A full-stack web application for cardiovascular disease risk prediction using 4 
 | Layer | Technology |
 |-------|-----------|
 | ML API | Python · FastAPI · Scikit-learn · XGBoost |
-| Backend | Node.js · Express · JWT · bcrypt · Nodemailer |
+| Backend | Node.js · Express · JWT · Google OAuth 2.0 · Mongoose |
 | Frontend | React (Vite) · Bootstrap 5 · Chart.js |
 | Database | MongoDB Atlas |
 | Deployment | Vercel (React) · Render (FastAPI + Node) |
@@ -35,9 +35,9 @@ Hybrid Ensemble = RF + SVM + XGBoost base models with Logistic Regression meta-l
 
 ## Features
 
-- **Email OTP Verification** — accounts require verified email before access
+- **Google OAuth 2.0** — sign in with any Google account, no password needed
 - **4 ML Models** — real inference via FastAPI, not a demo
-- **Prediction History** — every prediction saved per user in MongoDB
+- **Prediction History** — every prediction saved per user in MongoDB Atlas
 - **Model Comparison** — interactive Chart.js bar chart with full metrics
 - **Youden's J Thresholds** — mathematically optimized decision boundaries
 - **13 Clinical Features** — all required, none optional, field-level validation
@@ -48,22 +48,20 @@ Hybrid Ensemble = RF + SVM + XGBoost base models with Logistic Regression meta-l
 ## Project Structure
 
 CardioPredict/
-
 ├── fastapi/          # ML API — FastAPI serving 4 pkl models
-
 ├── backend/          # Node/Express — Auth, predictions, history
-
 ├── frontend/         # React/Vite — Full UI
-
 └── notebooks/        # 4 Jupyter notebooks — model training
 
+---
 
 ## Local Setup
 
 ### Prerequisites
 - Python 3.11+
 - Node.js 18+
-- MongoDB (local) or MongoDB Atlas URI
+- MongoDB Atlas URI
+- Google OAuth 2.0 Client ID and Secret
 
 ### FastAPI (ML API)
 ```bash
@@ -80,8 +78,8 @@ uvicorn main:app --reload --port 8000
 ```bash
 cd backend
 npm install
-# Create .env file (see .env.example)
-npm run dev
+# Create .env file (see Environment Variables below)
+node server.js
 ```
 
 ### React Frontend
@@ -96,19 +94,15 @@ npm run dev
 ## Environment Variables
 
 ### `backend/.env`
+
 MONGODB_URI=your_mongodb_atlas_uri
-
 JWT_SECRET=your_jwt_secret
-
 JWT_EXPIRE=7d
-
 PORT=5000
-
 FASTAPI_URL=http://localhost:8000
-
-EMAIL_USER=your_gmail@gmail.com
-
-EMAIL_PASS=your_gmail_app_password
+NODE_ENV=development
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
 
 ---
 
@@ -133,11 +127,13 @@ Run all 4 to regenerate pkl files. Requires Kaggle API key for dataset download.
 | FastAPI ML API | Render | Web Service |
 | Database | MongoDB Atlas | M0 Free Tier |
 
+> **Note:** Render free tier services spin down after 15 minutes of inactivity. First request after idle takes 30–60 seconds. This is expected — the ML service is not broken.
+
 ---
 
 ## Author
 
-**Nipun Garg**
+**Nipun Garg**  
 B.Tech CSE (AI & ML) · SRM Institute of Science & Technology, Delhi-NCR · Batch 2023–2027
 
-[LinkedIn](https://linkedin.com/in/nipungarg1409)
+[LinkedIn](https://linkedin.com/in/nipungarg1409) · [GitHub](https://github.com/Nipun140905) · gargnipun4@gmail.com
