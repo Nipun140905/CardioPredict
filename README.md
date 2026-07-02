@@ -48,10 +48,10 @@ Hybrid Ensemble = RF + SVM + XGBoost base models with Logistic Regression meta-l
 ## Project Structure
 
 CardioPredict/
-├── fastapi/          # ML API — FastAPI serving 4 pkl models
-├── backend/          # Node/Express — Auth, predictions, history
-├── frontend/         # React/Vite — Full UI
-└── notebooks/        # 4 Jupyter notebooks — model training
+- ├── fastapi/          # ML API — FastAPI serving 4 pkl models
+- ├── backend/          # Node/Express — Auth, predictions, history
+- ├── frontend/         # React/Vite — Full UI
+- └── notebooks/        # 4 Jupyter notebooks — model training
 
 ---
 
