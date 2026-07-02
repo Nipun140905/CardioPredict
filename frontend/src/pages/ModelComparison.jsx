@@ -15,7 +15,10 @@ const ModelComparison = () => {
     useEffect(() => {
         modelsAPI.getModels()
             .then(res => setMetrics(res.data))
-            .catch(() => setError('Failed to load model metrics.'))
+            .catch((err) => {
+                const msg = err.response?.data?.message;
+                setError(msg || 'ML service is starting up. Wait 30 seconds and refresh the page.');
+            })
             .finally(() => setLoading(false));
     }, []);
 
