@@ -95,14 +95,14 @@ npm run dev
 
 ### `backend/.env`
 
-MONGODB_URI=your_mongodb_atlas_uri
-JWT_SECRET=your_jwt_secret
-JWT_EXPIRE=7d
-PORT=5000
-FASTAPI_URL=http://localhost:8000
-NODE_ENV=development
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
+- MONGODB_URI=your_mongodb_atlas_uri
+- JWT_SECRET=your_jwt_secret
+- JWT_EXPIRE=7d
+- PORT=5000
+- FASTAPI_URL=http://localhost:8000
+- NODE_ENV=development
+- GOOGLE_CLIENT_ID=your_google_client_id
+- GOOGLE_CLIENT_SECRET=your_google_client_secret
 
 ---
 
@@ -136,4 +136,4 @@ Run all 4 to regenerate pkl files. Requires Kaggle API key for dataset download.
 **Nipun Garg**  
 B.Tech CSE (AI & ML) · SRM Institute of Science & Technology, Delhi-NCR · Batch 2023–2027
 
-[LinkedIn](https://linkedin.com/in/nipungarg1409) · [GitHub](https://github.com/Nipun140905) · gargnipun4@gmail.com
+[LinkedIn](https://linkedin.com/in/nipungarg1409)· gargnipun4@gmail.com
