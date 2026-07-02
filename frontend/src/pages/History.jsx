@@ -75,6 +75,24 @@ const History = () => {
                     </div>
                 ) : (
                     <div className="card-app">
+                        <div className="history-stats-grid">
+                            <div className="history-stat-card">
+                                <div className="history-stat-value">{predictions.length}</div>
+                                <div className="history-stat-label">Total Predictions</div>
+                            </div>
+                            <div className="history-stat-card">
+                                <div className="history-stat-value">
+                                    {predictions.length > 0
+                                        ? Math.round(predictions.reduce((a, p) => a + p.probability, 0) / predictions.length) + '%'
+                                        : '—'}
+                                </div>
+                                <div className="history-stat-label">Average Risk Score</div>
+                            </div>
+                            <div className="history-stat-card">
+                                <div className="history-stat-value">{predictions.filter(p => p.risk_level === 'High').length}</div>
+                                <div className="history-stat-label">High Risk Results</div>
+                            </div>
+                        </div>
                         <div className="table-responsive">
                             <table className="app-table">
                                 <thead>
