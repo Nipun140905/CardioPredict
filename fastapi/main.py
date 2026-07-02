@@ -23,7 +23,7 @@ MODEL_METRICS = {
     "hybrid": {"accuracy": 91.7, "auroc": 0.944, "threshold": 0.5204, "precision": 1.000, "recall": 0.821, "f1": 0.902},
 }
 
-@app.get("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health():
     return {"status": "ok", "models_loaded": list(predictor_module.models.keys())}
 

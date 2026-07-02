@@ -25,7 +25,7 @@ app.use('/predictions', predictionRoutes);
 app.use('/models', modelRoutes);
 
 // Health check
-app.get('/health', (req, res) => {
+app.all('/health', (req, res) => {
     res.json({ status: 'ok' });
 });
 
