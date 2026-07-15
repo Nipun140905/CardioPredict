@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 
 const STATS = [
     { value: '91.7%', label: 'Best Model Accuracy' },
-    { value: '0.946', label: 'Best AUROC Score' },
+    { value: '0.944', label: 'Best AUROC Score' },
     { value: '4', label: 'ML Models' },
     { value: '13', label: 'Clinical Features' },
 ];
