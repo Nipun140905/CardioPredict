@@ -14,8 +14,7 @@ A full-stack web application for cardiovascular disease risk prediction using 4 
 | Backend | Node.js · Express · JWT · Google OAuth 2.0 · Mongoose |
 | Frontend | React (Vite) · Bootstrap 5 · Chart.js |
 | Database | MongoDB Atlas |
-| Deployment | Vercel (React) · Render (FastAPI + Node) |
-
+| Deployment | Vercel (React) · Railway (FastAPI + Node) |
 ---
 
 ## ML Models
@@ -123,11 +122,9 @@ Run all 4 to regenerate pkl files. Requires Kaggle API key for dataset download.
 | Service | Platform | URL |
 |---------|----------|-----|
 | React Frontend | Vercel | Auto-deploys on push to main |
-| Node Backend | Render | Web Service |
-| FastAPI ML API | Render | Web Service |
+| Node Backend | Railway | Private networking to FastAPI |
+| FastAPI ML API | Railway | Internal-only, no public domain |
 | Database | MongoDB Atlas | M0 Free Tier |
-
-> **Note:** Render free tier services spin down after 15 minutes of inactivity. First request after idle takes 30–60 seconds. This is expected — the ML service is not broken.
 
 ---
 
